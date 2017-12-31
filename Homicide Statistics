@@ -1,0 +1,103 @@
+import csv
+opener = open("guns.csv")
+read = csv.reader(opener)
+data = list(read)
+print(data[0:5])
+[['', 'year', 'month', 'intent', 'police', 'sex', 'age', 'race', 'hispanic', 'place', 'education'], ['1', '2012', '01', 'Suicide', '0', 'M', '34', 'Asian/Pacific Islander', '100', 'Home', '4'], ['2', '2012', '01', 'Suicide', '0', 'F', '21', 'White', '100', 'Street', '3'], ['3', '2012', '01', 'Suicide', '0', 'M', '60', 'White', '100', 'Other specified', '4'], ['4', '2012', '02', 'Suicide', '0', 'M', '64', 'White', '100', 'Home', '4']]
+In [2]:headers = data[0]
+data = data[1:]
+print(headers)
+print(data[0:5])
+['', 'year', 'month', 'intent', 'police', 'sex', 'age', 'race', 'hispanic', 'place', 'education']
+[['1', '2012', '01', 'Suicide', '0', 'M', '34', 'Asian/Pacific Islander', '100', 'Home', '4'], ['2', '2012', '01', 'Suicide', '0', 'F', '21', 'White', '100', 'Street', '3'], ['3', '2012', '01', 'Suicide', '0', 'M', '60', 'White', '100', 'Other specified', '4'], ['4', '2012', '02', 'Suicide', '0', 'M', '64', 'White', '100', 'Home', '4'], ['5', '2012', '02', 'Suicide', '0', 'M', '31', 'White', '100', 'Other specified', '2']]
+In [9]:years = [each[1] for each in data]
+print(years[0:10])
+year_counts = {}
+for each in years:
+    if each in year_counts:
+        year_counts[each] = year_counts[each] + 1
+    else:
+        year_counts[each] = 1
+print(year_counts)
+['2012', '2012', '2012', '2012', '2012', '2012', '2012', '2012', '2012', '2012']
+{'2012': 33563, '2013': 33636, '2014': 33599}
+In [4]:import datetime
+dates = []
+date_counts = {}
+for each in data:
+    a = datetime.datetime(year = int(each[1]), month = int(each[2]), day = 1)
+    dates.append(a)
+
+for each in dates:
+    if each in date_counts:
+        date_counts[each] = date_counts[each] + 1
+    else:
+        date_counts[each] = 1
+print(date_counts)
+        
+{datetime.datetime(2014, 4, 1, 0, 0): 2862, datetime.datetime(2014, 11, 1, 0, 0): 2756, datetime.datetime(2012, 2, 1, 0, 0): 2357, datetime.datetime(2014, 10, 1, 0, 0): 2865, datetime.datetime(2013, 5, 1, 0, 0): 2806, datetime.datetime(2012, 7, 1, 0, 0): 3026, datetime.datetime(2014, 1, 1, 0, 0): 2651, datetime.datetime(2013, 8, 1, 0, 0): 2859, datetime.datetime(2012, 4, 1, 0, 0): 2795, datetime.datetime(2014, 8, 1, 0, 0): 2970, datetime.datetime(2013, 2, 1, 0, 0): 2375, datetime.datetime(2013, 11, 1, 0, 0): 2758, datetime.datetime(2014, 12, 1, 0, 0): 2857, datetime.datetime(2013, 7, 1, 0, 0): 3079, datetime.datetime(2012, 12, 1, 0, 0): 2791, datetime.datetime(2012, 8, 1, 0, 0): 2954, datetime.datetime(2014, 6, 1, 0, 0): 2931, datetime.datetime(2013, 10, 1, 0, 0): 2808, datetime.datetime(2013, 12, 1, 0, 0): 2765, datetime.datetime(2012, 9, 1, 0, 0): 2852, datetime.datetime(2012, 3, 1, 0, 0): 2743, datetime.datetime(2013, 6, 1, 0, 0): 2920, datetime.datetime(2013, 3, 1, 0, 0): 2862, datetime.datetime(2013, 4, 1, 0, 0): 2798, datetime.datetime(2012, 5, 1, 0, 0): 2999, datetime.datetime(2014, 2, 1, 0, 0): 2361, datetime.datetime(2014, 5, 1, 0, 0): 2864, datetime.datetime(2014, 9, 1, 0, 0): 2914, datetime.datetime(2012, 10, 1, 0, 0): 2733, datetime.datetime(2012, 1, 1, 0, 0): 2758, datetime.datetime(2014, 7, 1, 0, 0): 2884, datetime.datetime(2012, 6, 1, 0, 0): 2826, datetime.datetime(2013, 9, 1, 0, 0): 2742, datetime.datetime(2013, 1, 1, 0, 0): 2864, datetime.datetime(2014, 3, 1, 0, 0): 2684, datetime.datetime(2012, 11, 1, 0, 0): 2729}
+In [5]:sex_counts = {}
+for each in data:
+    a = each[5]
+    if a not in sex_counts:
+        sex_counts[a] = 1
+    else:
+        sex_counts[a] +=1
+print(sex_counts)
+
+race_counts = {}
+for each in data:
+    a = each[7]
+    if a not in race_counts:
+        race_counts[a] = 1
+    else:
+        race_counts[a] +=1
+print(race_counts)
+{'M': 86349, 'F': 14449}
+{'Hispanic': 9022, 'Black': 23296, 'White': 66237, 'Asian/Pacific Islander': 1326, 'Native American/Native Alaskan': 917}
+In [6]:openers = open("census.csv")
+reads = csv.reader(openers)
+census = list(reads)
+print(census)
+[['Id', 'Year', 'Id', 'Sex', 'Id', 'Hispanic Origin', 'Id', 'Id2', 'Geography', 'Total', 'Race Alone - White', 'Race Alone - Hispanic', 'Race Alone - Black or African American', 'Race Alone - American Indian and Alaska Native', 'Race Alone - Asian', 'Race Alone - Native Hawaiian and Other Pacific Islander', 'Two or More Races'], ['cen42010', 'April 1, 2010 Census', 'totsex', 'Both Sexes', 'tothisp', 'Total', '0100000US', '', 'United States', '308745538', '197318956', '44618105', '40250635', '3739506', '15159516', '674625', '6984195']]
+In [7]:mapping = {
+    'Asian/Pacific Islander': 674625 + 15159516,
+    'Black':40250635,
+    'Native American/Native Alaskan':3739506,
+    'Hispanic':44618105,
+    'White':197318956
+}
+
+race_per_hundredk = {}
+for each in race_counts:
+    race_per_hundredk[each] = (race_counts[each]/mapping[each]) * 100000
+print(race_per_hundredk)
+        
+{'Native American/Native Alaskan': 24.521955573811088, 'Black': 57.8773477735196, 'Hispanic': 20.220491210910907, 'Asian/Pacific Islander': 8.374309664161762, 'White': 33.56849303419181}
+In [18]:intents = [each[3] for each in data]
+races = [each[7] for each in data]
+homicide_race_counts = {}
+for i,each in enumerate(intents):
+    a = races[i]
+    if each == "Homicide":
+        if a in homicide_race_counts:
+            homicide_race_counts[a] += 1
+        else:
+            homicide_race_counts[a] = 1
+    
+homicide_race_counts_hundredk = {}
+for each in homicide_race_counts:
+    homicide_race_counts_hundredk[each] = (homicide_race_counts[each]/mapping[each]) * 100000
+
+print(homicide_race_counts_hundredk)
+        
+
+
+    
+{'Native American/Native Alaskan': 8.717729026240365, 'Black': 48.471284987180944, 'Hispanic': 12.627161104219914, 'Asian/Pacific Islander': 3.530346230970155, 'White': 4.6356417981453335}
+
+
+
+
+
+
