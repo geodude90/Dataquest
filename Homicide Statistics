@@ -96,6 +96,8 @@ print(homicide_race_counts_hundredk)
     
 {'Native American/Native Alaskan': 8.717729026240365, 'Black': 48.471284987180944, 'Hispanic': 12.627161104219914, 'Asian/Pacific Islander': 3.530346230970155, 'White': 4.6356417981453335}
 
+gender = [each[5] for each in data]homicide_gender_counts = {}for i,each in enumerate(intents):    a = gender[i]    if each == "Homicide":        if a in homicide_gender_counts:            homicide_gender_counts[a] += 1        else:            homicide_gender_counts[a] = 1    
+print(homicide_gender_counts)
 
 
 
